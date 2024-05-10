@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Test</string>
+    <string name="book_title">Book title</string>
+    <string name="writer">writer</string>
+    <string name="price_sample">2000</string>
+    <string name="price">Book price</string>
+    <string name="submit_book_form_desc">Submit book form</string>
+</resources>
