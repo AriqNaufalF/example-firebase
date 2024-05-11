@@ -3,12 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/bookFragment">
+    app:startDestination="@id/booksFragment">
 
 
     <fragment
-        android:id="@+id/bookFragment"
+        android:id="@+id/booksFragment"
         android:name="com.example.test.book.BooksFragment"
         android:label="books"
-        tools:layout="@layout/book_fragment" />
+        tools:layout="@layout/book_fragment">
+        <action
+            android:id="@+id/booksFragmentToDetailBookFragment"
+            app:destination="@id/detailBookFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailBookFragment"
+        android:name="com.example.test.book.DetailBookFragment"
+        android:label="Detail book"
+        tools:layout="@layout/book_detail_fragment" />
 </navigation>

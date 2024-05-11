@@ -5,4 +5,5 @@
     <string name="price_sample">2000</string>
     <string name="price">Book price</string>
     <string name="submit_book_form_desc">Submit book form</string>
+    <string name="book_list">Book list</string>
 </resources>

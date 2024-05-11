@@ -5,9 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
+import com.example.test.R
 import com.example.test.databinding.BookFragmentBinding
 
 private const val LOG_TAG = "BooksFragment"
@@ -15,7 +16,8 @@ private const val LOG_TAG = "BooksFragment"
 class BooksFragment : Fragment() {
     private lateinit var binding: BookFragmentBinding
     private lateinit var booksAdapter: BooksAdapter
-    private val viewModel: BooksViewModel by viewModels { BooksViewModel.Factory }
+//    Init shared viewModel scope in navGraph
+    private val viewModel: BooksViewModel by navGraphViewModels(R.id.navigation) { BooksViewModel.Factory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,11 +31,16 @@ class BooksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        Init adapter
-        booksAdapter = BooksAdapter()
-        with(binding.booksRv) {
-            adapter = booksAdapter
-            setHasFixedSize(true)
+        booksAdapter = BooksAdapter { book, _ ->
+//            Send data to another fragment with viewModel
+            viewModel.book = book
+
+//            Send data to another fragment with navigation args
+            val bundle = Bundle()
+            bundle.putSerializable("book", book)
+            findNavController().navigate(R.id.booksFragmentToDetailBookFragment, bundle)
         }
+        binding.booksRv.adapter = booksAdapter
 //        Insert data from viewmodel to adapter
         viewModel.books.observe(viewLifecycleOwner) {
             Log.d(LOG_TAG, "Books: $it")
@@ -42,7 +49,7 @@ class BooksFragment : Fragment() {
 //        Load data
         viewModel.loadData()
 
-//        Sandle submit
+//        Handle submit
         binding.submitButton.setOnClickListener {
             val title = binding.titleField.text.toString().trim()
             val price = binding.priceField.text.toString().trim()

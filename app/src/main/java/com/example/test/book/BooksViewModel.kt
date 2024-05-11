@@ -17,6 +17,7 @@ class BooksViewModel(private val booksRepository: BooksRepository) : ViewModel()
     private val _books = MutableLiveData<List<Book>>()
     val books: LiveData<List<Book>>
         get() = _books
+    var book: Book = Book()
 
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {

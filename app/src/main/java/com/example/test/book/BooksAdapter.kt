@@ -1,13 +1,14 @@
 package com.example.test.book
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test.databinding.BookListBinding
 
-class BooksAdapter : ListAdapter<Book, BooksAdapter.ViewHolder>(Companion) {
+class BooksAdapter(val onClick: (Book, View) -> Unit) : ListAdapter<Book, BooksAdapter.ViewHolder>(Companion) {
     companion object : DiffUtil.ItemCallback<Book>() {
             override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean {
                 return oldItem == newItem
@@ -23,6 +24,9 @@ class BooksAdapter : ListAdapter<Book, BooksAdapter.ViewHolder>(Companion) {
             titleTV.text = book.title
             writerTv.text = book.writer?.name
             priceTv.text =  book.price.toString()
+            bookCard.setOnClickListener {
+                onClick(book, it)
+            }
         }
     }
 
