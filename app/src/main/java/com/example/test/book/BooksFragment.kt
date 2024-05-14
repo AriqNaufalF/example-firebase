@@ -10,13 +10,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.example.test.R
 import com.example.test.databinding.BookFragmentBinding
+import com.google.android.material.snackbar.Snackbar
 
 private const val LOG_TAG = "BooksFragment"
 
 class BooksFragment : Fragment() {
     private lateinit var binding: BookFragmentBinding
     private lateinit var booksAdapter: BooksAdapter
-//    Init shared viewModel scope in navGraph
+
+    //    Init shared viewModel scope in navGraph
     private val viewModel: BooksViewModel by navGraphViewModels(R.id.navigation) { BooksViewModel.Factory }
 
     override fun onCreateView(
@@ -31,7 +33,7 @@ class BooksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        Init adapter
-        booksAdapter = BooksAdapter { book, _ ->
+        booksAdapter = BooksAdapter({ book, _ ->
 //            Send data to another fragment with viewModel
             viewModel.book = book
 
@@ -39,6 +41,11 @@ class BooksFragment : Fragment() {
             val bundle = Bundle()
             bundle.putSerializable("book", book)
             findNavController().navigate(R.id.booksFragmentToDetailBookFragment, bundle)
+        }) { book, _ ->
+            Log.i(LOG_TAG, "Book ${book.title} is on hold")
+            Snackbar.make(binding.booksRv, "Book ${book.title} hold", Snackbar.LENGTH_LONG)
+                .show()
+            true
         }
         binding.booksRv.adapter = booksAdapter
 //        Insert data from viewmodel to adapter

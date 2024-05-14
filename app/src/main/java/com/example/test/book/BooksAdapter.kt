@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test.databinding.BookListBinding
 
-class BooksAdapter(val onClick: (Book, View) -> Unit) : ListAdapter<Book, BooksAdapter.ViewHolder>(Companion) {
+class BooksAdapter(val onClick: (Book, View) -> Unit, val onLongClick: (Book, View) -> Boolean) : ListAdapter<Book, BooksAdapter.ViewHolder>(Companion) {
     companion object : DiffUtil.ItemCallback<Book>() {
             override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean {
                 return oldItem == newItem
@@ -26,6 +26,10 @@ class BooksAdapter(val onClick: (Book, View) -> Unit) : ListAdapter<Book, BooksA
             priceTv.text =  book.price.toString()
             bookCard.setOnClickListener {
                 onClick(book, it)
+            }
+
+            bookCard.setOnLongClickListener {
+                onLongClick(book, it)
             }
         }
     }

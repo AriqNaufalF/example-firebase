@@ -42,8 +42,9 @@ class BooksRepository(private val firestore: FirebaseFirestore) {
                 "writer" to writerId,
                 "timestamp" to Timestamp.now()
             )
-            firestore.collection("books").add(book).await()
-            Log.i(LOG_TAG, "Book uploaded")
+            val newBook = firestore.collection("books").add(book).await()
+
+            Log.i(LOG_TAG, "Book uploaded with ID: ${newBook.id}")
         } catch (e: FirebaseFirestoreException) {
             Log.e(LOG_TAG, "Fail to get book data", e)
         }
