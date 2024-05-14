@@ -43,5 +43,27 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/wishlistBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/writerTv"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_marginTop="24dp"
+                android:textColor="@color/white"
+                android:text="@string/wishlist"
+                app:icon="@drawable/outline_collections_bookmark_24"
+                app:iconTint="@color/white"/>
+
+            <TextView
+                android:id="@+id/wishlistCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wishlist_count"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/wishlistBtn" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

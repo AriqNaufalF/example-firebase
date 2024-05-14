@@ -15,9 +15,11 @@ import kotlinx.coroutines.withContext
 
 class BooksViewModel(private val booksRepository: BooksRepository) : ViewModel() {
     private val _books = MutableLiveData<List<Book>>()
+    private val _book = MutableLiveData<Book>()
     val books: LiveData<List<Book>>
         get() = _books
-    var book: Book = Book()
+    val book: LiveData<Book>
+        get() = _book
 
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
@@ -30,9 +32,21 @@ class BooksViewModel(private val booksRepository: BooksRepository) : ViewModel()
 
     fun loadData() = viewModelScope.launch {
         withContext(Dispatchers.Main) {
-            booksRepository.getBooks().collect {
+//            For simplification user id set to static value
+//            This user id should get from authenticated user like firebase auth
+            booksRepository.getBooks("8cU0LiSYHHwxqJNCfVy6").collect {
                 _books.value = it
             }
+        }
+    }
+
+    fun setBook(book: Book) {
+        _book.value = book
+    }
+
+    fun getBook(bookId: String) = viewModelScope.launch(Dispatchers.IO) {
+        booksRepository.getBook(bookId)?.let {
+            _book.postValue(it)
         }
     }
 
@@ -41,5 +55,10 @@ class BooksViewModel(private val booksRepository: BooksRepository) : ViewModel()
 //            Just for simplification, writerId set to static value
             booksRepository.addBook(title, price, "8cU0LiSYHHwxqJNCfVy6")
         }
+    }
+
+    fun setWishlist(bookId: String) = viewModelScope.launch(Dispatchers.IO) {
+//        Just for simplification, writerId set to static value
+        booksRepository.setWishlist("8cU0LiSYHHwxqJNCfVy6", bookId)
     }
 }

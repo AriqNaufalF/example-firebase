@@ -6,4 +6,6 @@
     <string name="price">Book price</string>
     <string name="submit_book_form_desc">Submit book form</string>
     <string name="book_list">Book list</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="wishlist_count">Wishlist by %1$d people</string>
 </resources>

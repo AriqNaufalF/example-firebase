@@ -33,20 +33,24 @@ class BooksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        Init adapter
-        booksAdapter = BooksAdapter({ book, _ ->
+        booksAdapter = BooksAdapter(onClick = { book, _ ->
 //            Send data to another fragment with viewModel
-            viewModel.book = book
+            viewModel.setBook(book)
 
 //            Send data to another fragment with navigation args
             val bundle = Bundle()
             bundle.putSerializable("book", book)
             findNavController().navigate(R.id.booksFragmentToDetailBookFragment, bundle)
-        }) { book, _ ->
+        }, onLongClick = { book, _ ->
             Log.i(LOG_TAG, "Book ${book.title} is on hold")
             Snackbar.make(binding.booksRv, "Book ${book.title} hold", Snackbar.LENGTH_LONG)
                 .show()
             true
-        }
+        }, onWishlist = { book, _ ->
+            viewModel.setWishlist(book.id ?: "")
+            Log.d(LOG_TAG, "Books: $book")
+            book.wishlist != null
+        })
         binding.booksRv.adapter = booksAdapter
 //        Insert data from viewmodel to adapter
         viewModel.books.observe(viewLifecycleOwner) {
