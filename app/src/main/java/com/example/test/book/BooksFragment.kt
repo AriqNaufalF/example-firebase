@@ -47,9 +47,9 @@ class BooksFragment : Fragment() {
                 .show()
             true
         }, onWishlist = { book, _ ->
+//            Set wishlist
             viewModel.setWishlist(book.id ?: "")
-            Log.d(LOG_TAG, "Books: $book")
-            book.wishlist != null
+            Log.d(LOG_TAG, "Wishlist: ${book.title} - ${book.wishlist}")
         })
         binding.booksRv.adapter = booksAdapter
 //        Insert data from viewmodel to adapter

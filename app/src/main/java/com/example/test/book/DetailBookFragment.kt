@@ -52,7 +52,7 @@ class DetailBookFragment : Fragment() {
                 binding.spinner.visibility = View.VISIBLE
                 binding.mainContent.visibility = View.GONE
                 viewModel.setWishlist(book?.id ?: "").invokeOnCompletion {
-//                  Update book data
+//                  Update book data after set wishlist
                     viewModel.getBook(book?.id ?: "")
                     lifecycleScope.launch {
 //                    Hide loading spinner

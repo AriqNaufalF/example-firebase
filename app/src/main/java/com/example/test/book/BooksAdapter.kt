@@ -13,7 +13,7 @@ import com.example.test.databinding.BookListBinding
 class BooksAdapter(
     val onClick: (Book, View) -> Unit,
     val onLongClick: (Book, View) -> Boolean,
-    val onWishlist: (Book, View) -> Boolean
+    val onWishlist: (Book, View) -> Unit
 ) : ListAdapter<Book, BooksAdapter.ViewHolder>(Companion) {
     private lateinit var context: Context
 
@@ -49,13 +49,7 @@ class BooksAdapter(
                 onLongClick(book, it)
             }
             wishlistBtn.setOnClickListener {
-                val isWished = onWishlist(book, it)
-//                Change color base on is wishlisted
-                wishlistBtn.setBackgroundColor(
-                    context.getColor(
-                        if (isWished) R.color.blue else R.color.black
-                    )
-                )
+                onWishlist(book, it)
             }
         }
     }

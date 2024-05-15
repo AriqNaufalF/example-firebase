@@ -88,6 +88,8 @@ class BooksRepository(private val firestore: FirebaseFirestore) {
 
     suspend fun setWishlist(userId: String, bookId: String) {
         try {
+//            Create custom ID for the wishlist document,
+//            to make sure user only have wishlist document for each book
             val docId = "${userId}_${bookId}"
             val wishlistRef = firestore.collection("wishlist")
                 .document(docId)
