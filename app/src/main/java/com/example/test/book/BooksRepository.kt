@@ -59,6 +59,7 @@ class BooksRepository(private val firestore: FirebaseFirestore) {
                         .document("${writerId}_${it.id}").get().await()
                         .toObject(Wishlist::class.java)
 
+
                     it.toObject(Book::class.java)
                         ?.copy(id = it.id, writer = writer, wishlist = wishlist)
                 }

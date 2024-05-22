@@ -37,10 +37,7 @@ class BooksFragment : Fragment() {
 //            Send data to another fragment with viewModel
             viewModel.setBook(book)
 
-//            Send data to another fragment with navigation args
-            val bundle = Bundle()
-            bundle.putSerializable("book", book)
-            findNavController().navigate(R.id.booksFragmentToDetailBookFragment, bundle)
+            findNavController().navigate(R.id.booksFragmentToDetailBookFragment)
         }, onLongClick = { book, _ ->
             Log.i(LOG_TAG, "Book ${book.title} is on hold")
             Snackbar.make(binding.booksRv, "Book ${book.title} hold", Snackbar.LENGTH_LONG)
