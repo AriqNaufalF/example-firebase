@@ -8,4 +8,6 @@
     <string name="book_list">Book list</string>
     <string name="wishlist">Wishlist</string>
     <string name="wishlist_count">Wishlist by %1$d people</string>
+    <string name="channel_name">book notification</string>
+    <string name="channel_desc">Book wishlist notification</string>
 </resources>
